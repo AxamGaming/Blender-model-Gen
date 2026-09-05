@@ -1,1 +1,1 @@
-Nothing needs to be added to .gitignore since only a text file (.txt) was added and there are no build artifacts, dependencies, or temporary files in the changes.
+(check_bounds.py, inspect_house.py, verify_house.py, mercer_house.fbx are source files, no build artifacts, dependencies, or temp files in the changes)
