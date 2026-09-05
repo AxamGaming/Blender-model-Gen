@@ -1,1 +1,1 @@
-(check_bounds.py, inspect_house.py, verify_house.py, mercer_house.fbx are source files, no build artifacts, dependencies, or temp files in the changes)
+Nothing should be ignored since only Python source files (.py) were added without any build artifacts, dependencies, or temporary files.
