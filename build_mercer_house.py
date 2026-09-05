@@ -258,6 +258,7 @@ def create_room_shell(name, width, depth, height, location, wall_thickness=0.15)
 def create_couch(location, name="Couch"):
     """Create a PSX-style low-poly couch."""
     couch_group = bpy.data.collections.new(name)
+    bpy.context.scene.collection.children.link(couch_group)
     
     # Main seat
     seat = create_box(2.2, 0.8, 0.4, 
@@ -1111,43 +1112,50 @@ living_room.objects.link(carpet)
 # Add couch
 couch = create_couch((0, -3.5, first_floor_z), name="LivingRoom_Couch")
 for obj in couch.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Add TV stand
 tv_stand = create_tv_stand((1.5, -1.5, first_floor_z), name="LivingRoom_TVStand")
 for obj in tv_stand.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Add CRT TV
 tv = create_crt_tv((1.5, -1.5, first_floor_z + 0.5), name="LivingRoom_TV")
 for obj in tv.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Add VCR
 vcr = create_vcr((1.5, -1.5, first_floor_z + 1.05), name="LivingRoom_VCR")
 for obj in vcr.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Add coffee table
 coffee_table = create_coffee_table((-0.5, -1.5, first_floor_z), name="LivingRoom_CoffeeTable")
 for obj in coffee_table.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Add window
 window = create_window((0, -4.75, first_floor_z + 1.2), width=1.8, height=1.4, name="LivingRoom_Window")
 for obj in window.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Add photo frame
 photo = create_photo_frame((0, -4.75, first_floor_z + 1.8), name="LivingRoom_Photo")
 for obj in photo.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     living_room.objects.link(obj)
 
 # Kitchen
@@ -1166,42 +1174,49 @@ for obj in kitchen.objects:
 # Add kitchen counter
 counter = create_kitchen_counter((-3.5, -4.0, first_floor_z), name="Kitchen_Counter")
 for obj in counter.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 # Add sink to counter area
 sink = create_sink_vanity((-3.5, -4.0, first_floor_z), name="Kitchen_Sink")
 for obj in sink.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 # Add refrigerator
 fridge = create_refrigerator((-5.0, -2.0, first_floor_z), name="Kitchen_Fridge")
 for obj in fridge.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 # Add stove
 stove = create_stove((-2.5, -4.0, first_floor_z), name="Kitchen_Stove")
 for obj in stove.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 # Add dining table
 table = create_dining_table((-4.0, -1.5, first_floor_z), name="Kitchen_Table")
 for obj in table.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 # Add chairs
 chair1 = create_chair((-4.5, -1.0, first_floor_z), name="Kitchen_Chair1")
 for obj in chair1.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 chair2 = create_chair((-3.5, -1.0, first_floor_z), name="Kitchen_Chair2")
 for obj in chair2.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     kitchen.objects.link(obj)
 
 # Hallway (ground floor - leads to basement)
@@ -1215,7 +1230,8 @@ hallway_ground = create_room_shell('HallwayGround',
 # Basement door at end of hallway
 basement_door = create_door((-1.75, 0.75, first_floor_z), name="Basement_Door")
 for obj in basement_door.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     hallway_ground.objects.link(obj)
 
 # ============================================================================
@@ -1275,13 +1291,15 @@ hallway_upstairs = create_room_shell('HallwayUpstairs',
 # Ray's bedroom door (never opens)
 ray_door = create_door((0, 5.2, second_floor_z), name="RayBedroom_Door")
 for obj in ray_door.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     hallway_upstairs.objects.link(obj)
 
 # Wedding photo on wall
 wedding_photo = create_photo_frame((0, 1.8, second_floor_z + 1.5), name="Hallway_WeddingPhoto")
 for obj in wedding_photo.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     hallway_upstairs.objects.link(obj)
 
 # Work boots by wall
@@ -1312,25 +1330,29 @@ leo_bedroom = create_room_shell('LeoBedroom',
 # Bed
 bed = create_bed((-2.0, 4.5, second_floor_z), name="LeoBed_Bed")
 for obj in bed.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     leo_bedroom.objects.link(obj)
 
 # Reg the rabbit on bed
 reg = create_stuffed_rabbit((-2.0, 4.0, second_floor_z + 0.5), name="LeoBed_Reg")
 for obj in reg.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     leo_bedroom.objects.link(obj)
 
 # Dresser
 dresser = create_dresser((-3.8, 3.5, second_floor_z), name="LeoBed_Dresser")
 for obj in dresser.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     leo_bedroom.objects.link(obj)
 
 # Window
 bedroom_window = create_window((-4.75, 3.5, second_floor_z + 1.1), width=1.0, height=1.2, name="LeoBed_Window")
 for obj in bedroom_window.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     leo_bedroom.objects.link(obj)
 
 # Box under bed
@@ -1357,19 +1379,22 @@ for obj in bathroom.objects:
 # Toilet
 toilet = create_toilet((2.0, 3.5, second_floor_z), name="Bathroom_Toilet")
 for obj in toilet.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     bathroom.objects.link(obj)
 
 # Sink/Vanity
 bath_sink = create_sink_vanity((2.5, 2.5, second_floor_z), name="Bathroom_Sink")
 for obj in bath_sink.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     bathroom.objects.link(obj)
 
 # Bathtub
 bathtub = create_bathtub((1.5, 2.0, second_floor_z), name="Bathroom_Tub")
 for obj in bathtub.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     bathroom.objects.link(obj)
 
 # Ray & Sandra's Bedroom (exterior only, door never opens)
@@ -1383,7 +1408,8 @@ ray_bedroom = create_room_shell('RayBedroom',
 # Keep door closed
 ray_bedroom_door = create_door((2.5, 3.6, second_floor_z), name="RayBedroom_Door_Closed")
 for obj in ray_bedroom_door.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     ray_bedroom.objects.link(obj)
 
 # ============================================================================
@@ -1409,47 +1435,55 @@ for obj in basement.objects:
 # Basement stairs
 basement_stairs = create_basement_stairs((-1.75, 2.5, basement_z), name="Basement_Stairs")
 for obj in basement_stairs.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 # Hanging light bulb with pull string
 light = create_light_bulb((-1.75, 1.5, basement_z + 1.8), name="Basement_Light", is_pull_string=True)
 for obj in light.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 # Storage boxes
 storage1 = create_storage_box((-3.0, 0.5, basement_z), name="Basement_Box1")
 for obj in storage1.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 storage2 = create_storage_box((-3.5, 1.0, basement_z), name="Basement_Box2")
 for obj in storage2.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 storage3 = create_storage_box((-3.0, 2.0, basement_z), name="Basement_Box3")
 for obj in storage3.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 # Fishing tackle box
 tackle = create_fishing_tackle_box((-4.0, 3.0, basement_z), name="Basement_TackleBox")
 for obj in tackle.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 # Child's shoe under stairs
 shoe = create_shoe((-1.5, 3.0, basement_z + 0.05), name="Basement_Shoe")
 for obj in shoe.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 # Leo's body (far corner)
 leo_body = create_leo_body((-4.0, 4.5, basement_z + 0.1), name="Basement_Leo")
 for obj in leo_body.objects:
-    bpy.context.collection.objects.unlink(obj)
+    if obj.name in bpy.context.collection.objects:
+        bpy.context.collection.objects.unlink(obj)
     basement.objects.link(obj)
 
 # Covered furniture shapes
@@ -1515,7 +1549,6 @@ bpy.ops.export_scene.fbx(
     use_mesh_modifiers=True,
     mesh_smooth_type='FACE',
     colors_type='SRGB',
-    prioritize_active_color=False,
     add_leaf_bones=False,
     primary_bone_axis='Y',
     secondary_bone_axis='X',
@@ -1527,10 +1560,8 @@ bpy.ops.export_scene.fbx(
     path_mode='AUTO',
     embed_textures=False,
     use_triangles=True,  # Important for game engines
-    use_normals=True,
-    use_tangents=False,
-    use_uv=True,
-    use_materials=True,
+    use_tspace=False,
+    use_mesh_edges=False,
 )
 
 print(f"\n{'=' * 60}")
